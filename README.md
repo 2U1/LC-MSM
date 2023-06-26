@@ -23,7 +23,7 @@ This repository contains the official code for <br>
 - torch >= 1.8.0
 - torchvision
 - mmcv-full
-- clip==1.0
+- open-clip
 - tqdm
 
 To use this code, please first install the 'mmcv-full' by following the official guideline guidelines ([`mmcv`](https://github.com/open-mmlab/mmcv/blob/master/README.md)).
