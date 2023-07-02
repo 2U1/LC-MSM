@@ -26,7 +26,7 @@ This repository contains the official code for <br>
 - open-clip
 - tqdm
 
-To use this code, please first install the 'mmcv-full' by following the official guideline guidelines ([`mmcv`](https://github.com/open-mmlab/mmcv/blob/master/README.md)).
+To use this code, please first install the 'mmcv-full' by following the official guidelines ([`mmcv`](https://github.com/open-mmlab/mmcv/blob/master/README.md)).
 
 
 The requirements can be installed by the following command
