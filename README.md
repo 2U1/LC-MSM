@@ -11,7 +11,7 @@ This repository contains the official code for <br>
  |HRDA|73.8|65.8|
  |LC-MSM (Multi-resolution)|76.0|68.2|
 
- ![performance](imgs/performance.png)
+ ![performance](imgs/vis.png)
 
 ## Usage
 
