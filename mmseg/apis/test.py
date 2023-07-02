@@ -64,34 +64,9 @@ def single_gpu_test(model,
     if efficient_test:
         mmcv.mkdir_or_exist('.efficient_test')
 
-    gt = dataset.get_gt_seg_maps()
-    overall_embed = []
-    overall_label = []
-
     for i, data in enumerate(data_loader):
         with torch.no_grad():
-            # result = model(return_loss=False, **data)
-
-            result, embed = model(return_loss=False, **data)
-            embed = torch.from_numpy(embed)
-            B, C, H, W = embed.size()
-            embed = embed.permute(0, 2, 3, 1)
-            embed = embed.view(-1, embed.shape[-1])
-
-            label = torch.from_numpy(gt[i])
-            gt_shape = label.shape
-            label = label.reshape(1, 1, gt_shape[0], gt_shape[1])
-            label = F.interpolate(label, size=(H, W), mode='nearest')
-            label = label.permute(0, 2, 3, 1)
-            label = label.view(-1, 1)
-
-            index_1 = (~(label == -1)).squeeze(-1)
-            embeddings = embed[index_1]
-            labels = label[index_1]
-
-            overall_embed.append(embeddings)
-            overall_label.append(labels)
-
+            result = model(return_loss=False, **data)
         if show or out_dir:
             img_tensor = data['img'][0]
             img_metas = data['img_metas'][0].data[0]
@@ -136,18 +111,6 @@ def single_gpu_test(model,
         batch_size = len(result)
         for _ in range(batch_size):
             prog_bar.update()
-
-    overall_embed = torch.cat(overall_embed, dim=0)
-    overall_label = torch.cat(overall_label, dim=0)
-
-    print('overall_embed', overall_embed.shape)
-    print('overall_label', overall_label.shape)
-
-    overall_embed = overall_embed.numpy()
-    overall_label = overall_label.numpy()
-
-    np.save('/home/workspace/CLIPDA/seg_embeddings.npy', overall_embed)
-    np.save('/home/workspace/CLIPDA/seg_labels.npy', overall_label)
 
     return results
 

@@ -11,20 +11,9 @@ from .psp_head import PSPHead
 from .segformer_head import SegFormerHead
 from .sep_aspp_head import DepthwiseSeparableASPPHead
 from .uper_head import UPerHead
-from .heads import IdentityHead
-from .clip_head import CLIPHead
 from .fpn_head import FPNHead
-from .clip_head_oa import CLIPHeadOA
-from .lseg_head import LsegHead
-from .lseg_head_context import LsegHeadContext
-from .attention_head_context import AttentionHeadContext
 from .dlv2_head_clip import DLV2HeadCLIP
-from .bert_head import BertHead
-from .lseg_head_context_oc import LsegHeadContextOC
-from .vlc_head_context_large import VLCHeadConetextLarge
-from .vlc_head_large import VLCHeadLarge
-from .tigda_vlc_head import TigDAVLCHeadLarge
-
+from .lc_msm_head import LCMSMHead
 __all__ = [
     'FCNHead',
     'PSPHead',
@@ -36,17 +25,7 @@ __all__ = [
     'SegFormerHead',
     'DAFormerHead',
     'ISAHead',
-    'IdentityHead',
-    'CLIPHead',
     'FPNHead',
-    'CLIPHeadOA',
-    'LsegHead',
-    'LsegHeadContext',
-    'AttentionHeadContext',
     'DLV2HeadCLIP',
-    'BertHead',
-    'LsegHeadContextOC',
-    'VLCHeadConetextLarge',
-    'VLCHeadLarge',
-    'TigDAVLCHeadLarge',
+    'LCMSMHead',
 ]

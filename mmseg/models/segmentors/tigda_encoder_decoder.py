@@ -245,17 +245,6 @@ class TigDAEncoderDecoder(BaseSegmentor):
 
         return losses
 
-    def encode_fuse(self, img, img_metas):
-        x = self.extract_feat(img)
-        out = self.decode_head.return_embed(x)
-
-        return out
-
-    def whole_embed(self, img, img_meta, rescale):
-        embed_feat = self.encode_fuse(img, img_meta)
-
-        return embed_feat
-
     # TODO refactor
     def slide_inference(self, img, img_meta, rescale):
         """Inference by sliding-window with overlap.
@@ -361,8 +350,6 @@ class TigDAEncoderDecoder(BaseSegmentor):
         """Simple test with single image."""
         seg_logit = self.inference(img, img_meta, rescale)
 
-        embed_feature = self.whole_embed(img, img_meta, rescale)
-
         seg_pred = seg_logit.argmax(dim=1)
         if torch.onnx.is_in_onnx_export():
             # our inference backend only support 4D output
@@ -371,10 +358,7 @@ class TigDAEncoderDecoder(BaseSegmentor):
         seg_pred = seg_pred.cpu().numpy()
         # unravel batch dim
         seg_pred = list(seg_pred)
-        # return seg_pred
-
-        embed_feature = embed_feature.cpu().numpy()
-        return seg_pred, embed_feature
+        return seg_pred
 
     def aug_test(self, imgs, img_metas, rescale=True):
         """Test with augmentations.

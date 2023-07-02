@@ -23,7 +23,6 @@ import torch.nn.functional as F
 import torch.nn as nn
 from collections import OrderedDict
 import open_clip
-import clip
 
 from mmseg.core import add_prefix
 from mmseg.models import UDA, build_segmentor
@@ -97,10 +96,6 @@ class DACSTigDA(UDADecorator):
         self.clip_model, _, _ = open_clip.create_model_and_transforms(
             'ViT-H-14', pretrained='laion2b_s32b_b79k')
         tokenizer = open_clip.get_tokenizer('ViT-H-14')
-        # self.clip_model, _ = clip.load('RN50x16', device='cpu', jit=False)
-        # self.clip_model, _ = clip.load('ViT-B/32', device='cpu', jit=False)
-        # self.clip_model, _ = clip.load('ViT-B/16', device='cpu', jit=False)
-        # tokenizer = clip.tokenize
 
         for param in self.clip_model.parameters():
             param.requires_grad = False
@@ -122,7 +117,6 @@ class DACSTigDA(UDADecorator):
 
         self.text = tokenizer(prompts)
         self.text_embed_net = nn.Linear(1024, 512)
-        # self.text_embed_net = nn.Linear(512, 512)
 
     def get_ema_model(self):
         return get_module(self.ema_model)
